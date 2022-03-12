@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2022-02-23 r18607
+# deblob-check version 2022-03-11 r18628
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -6412,6 +6412,51 @@ set_except () {
 
     # New in 5.16.11, 5.15.25, 5.10.102.
     blobname 'gsl1680-rwc-nanote-p8\.fw' drivers/platform/x86/touchscreen_dmi.c
+
+    # New in 5.17-rc.
+    accept '[ ]*Index\([ ]*\(CPU\|IRQ\|Thr\)-[0-9]*\)*\([\n]\([ ]*[0-9]*\)*\)*' Documentation/tools/rtla/rtla-osnoise-hist.rst
+    accept '[\t]*nvidia[,]emc-configuration[ ]=[ ]*<[ \t\n0-9xa-f]*>[;]' 'arch/arm/boot/dts/tegra30-\(asus-tf\(201\|300tg\?\|700t\)\|pegatron-chagall\)\.dts'
+    blobname 'qcom[/]sdm845[/]oneplus6[/]venus\.mbn' 'arch/arm64/boot/dts/qcom/sdm845-oneplus-\(common.dtsi\|beryllium\.dts\)'
+    blobname 'mediatek[/]BT_RAM_CODE_MT7961_1_2_hdr\.bin' drivers/bluetooth/btmtk.h
+    blobname 'qca[/]nvm_usb_%08x\(%s\(_%04x\)\?\)\?\.bin' drivers/bluetooth/btusb.c
+    defsc 'static[ ]const[ ]struct[ ]rcar_gen4_cpg_pll_config[ ]cpg_pll_configs\[4\][ ]=' drivers/clk/renesas/r8a779a0-cpg-mssr.c
+    blobname 'qat_4xxx_dc\.bin' drivers/crypto/qat/qat_4xxx/adf_4xxx_hw_data.h
+    blobname 'a506_zap\.mdt' drivers/gpu/drm/msm/adreno/adreno_device.c
+    defsnc 'static[ ]const[ ]u32[ ]hsfreqrange_table\[\]\[2\][ ]=' drivers/gpu/drm/rcar-du/rcar_mipi_dsi.c
+    blobname 'nvidia[/]tegra\(210\|186\|194\)[/]nvdec\.bin' drivers/gpu/drm/tegra/nvdec.c
+    accept 'static[ ]const[ ]struct[ ]nvdec_config[ ]nvdec_t\(210\|186\|194\)_config[ ]=[ ][{][\n][	]\.firmware[ ]*=[ ]' drivers/gpu/drm/tegra/nvdec.c
+    defsnc 'static[ ]const[ ]unsigned[ ]int[ ]ad74413r_debounce_map\[AD74413R_DIN_DEBOUNCE_LEN\][ ]=' drivers/iio/addac/ad74413r.c
+    blobname 'dvb_driver_si2141_rom6[01]\.fw' drivers/media/tuners/si2157_priv.h
+    blobname 'dvb_driver_si2146_rom11\.fw' drivers/media/tuners/si2157_priv.h
+    blobname 'dvb_driver_si2147_rom50\.fw' drivers/media/tuners/si2157_priv.h
+    blobname 'dvb_driver_si2148_rom3[23]\.fw' drivers/media/tuners/si2157_priv.h
+    blobname 'dvb_driver_si2157_rom50\.fw' drivers/media/tuners/si2157_priv.h
+    blobname 'dvb_driver_si2178_rom50\.fw' drivers/media/tuners/si2157_priv.h
+    blobname 'dvb_driver_si2158_rom51\.fw' drivers/media/tuners/si2157_priv.h
+    blobname 'dvb_driver_si2177_rom50\.fw' drivers/media/tuners/si2157_priv.h
+    defsc 'const[ ]struct[ ]v4l2_vp9_frame_context[ ]v4l2_vp9_default_probs[ ]=' drivers/media/v4l2-core/v4l2-vp9.c
+    defsnc 'static[ ]const[ ]u8[ ]hclge_comm_hash_key\[\][ ]=' drivers/net/ethernet/hisilicon/hns3/hns3_common/hclge_comm_rss.c
+    defsnc 'static[ ]const[ ]u16[ ]mlxsw_sp2_acl_bf_crc16_tab\[256\][ ]=' drivers/net/ethernet/mellanox/mlxsw/spectrum_acl_bloom_filter.c
+    defsnc 'static[ ]const[ ]u16[ ]mlxsw_sp4_acl_bf_crc10_tab\[256\][ ]=' drivers/net/ethernet/mellanox/mlxsw/spectrum_acl_bloom_filter.c
+    defsnc 'static[ ]const[ ]u8[ ]mlxsw_sp4_acl_bf_crc6_tab\[256\][ ]=' drivers/net/ethernet/mellanox/mlxsw/spectrum_acl_bloom_filter.c
+    blobname 'regdb\.bin' drivers/net/wireless/ath/ath11k/hw.h
+    blobname 'mediatek[/]mt7915_eeprom\(_dbdc\)\?\.bin' drivers/net/wireless/mediatek/mt76/mt7915/mt7915.h
+    defsnc 'static[ ]const[ ]struct[ ]msm_gpio_wakeirq_map[ ]sdx65_pdc_map\[\][ ]=' drivers/pinctrl/qcom/pinctrl-sdx65.c
+    defsnc 'static[ ]const[ ]struct[ ]msm_gpio_wakeirq_map[ ]sm8450_pdc_map\[\][ ]=' drivers/pinctrl/qcom/pinctrl-sm8450.c
+    blobname 'gsl1680-chuwi-hi8\.fw' drivers/platform/x86/x86-android-tablets.c
+    blobname 'gt912-tm800a550l\.fw' drivers/platform/x86/x86-android-tablets.c
+    defsnc 'static[ ]const[ ]u32[ ]bq25890_tspct_tbl\[\][ ]=' drivers/power/supply/bq25890_charger.c
+    defsnc 'static[ ]const[ ]struct[ ]reg_default[ ]ak4375_reg_defaults\[\][ ]=' sound/soc/codecs/ak4375.c
+    defsc 'static[ ]const[ ]struct[ ]reg_default[ ]adc3xxx_defaults\[\][ ]=' sound/soc/codecs/tlv320adc3xxx.c
+    # sof-rn.ri is built out of CONFIG_RENOIR from sof/ project's sources.
+    accept '[\t]\([\t]\.\|\.default_\)fw_filename[ \t]=[ ]["]sof-rn\.ri["][,]' sound/soc/amd/acp-config.c
+    accept '[\t]\.nocodec_tplg_filename[ \t]=[ ]["]sof-acp\.tplg["][,]' sound/soc/sof/amd/pci-rn.c
+    blobna 'For[ ]both[ ]Cherrytrail[ ][(]CHT[)][ ]and[ ]Baytrail[ ][(]BHT[)][ ]the[ ]driver[\n]requires[^\n]*\([\n][^\n]\+\)*\([\n][\n][- ][^\n]*\)*' drivers/staging/media/atomisp/TODO
+    blobname 'qcom[/]apq8096[/]adsp\.mbn' arch/arm64/boot/dts/qcom/apq8096-db820c.dts
+    blobname 'qcom[/]sdm845[/]beryllium[/]venus\.mbn' arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium.dts 
+    blobname 'qcom[/]sm7225[/]fairphone4[/]\(adsp\|cdsp\|modem\)\.mdt' arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+    blobname 'qcom[/]sm8350[/]microsoft[/]\(adsp\|cdsp\|modem\|slpi\)\.mbn' arch/arm64/boot/dts/qcom/sm8350-microsoft-surface-duo2.dts
+    blobname 'qcom[/]\(adsp\|cdsp\|ipa_fws\|modem\|slpi\)\.mbn' arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi
 
     ;;
 
