@@ -2875,6 +2875,9 @@ clean_mk CONFIG_NET_DSA_LANTIQ_GSWIP drivers/net/dsa/Makefile
 
 announce MICROSEMI_PHY - "Microsemi PHYs"
 reject_firmware drivers/net/phy/mscc/mscc_main.c
+if grep -q MODULE_FIRMWARE drivers/net/phy/mscc/mscc_main.c; then
+  clean_blob drivers/net/phy/mscc/mscc_main.c
+fi
 clean_blob drivers/net/phy/mscc/mscc.h
 clean_kconfig drivers/net/phy/Kconfig MICROSEMI_PHY
 clean_mk CONFIG_MICROSEMI_PHY drivers/net/phy/mscc/Makefile
