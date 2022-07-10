@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2022-06-16 r18782
+# deblob-check version 2022-07-10 r18820
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -6479,7 +6479,6 @@ set_except () {
     blobname 'amdgpu[/]%s_cap\.bin' drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
     blobname 'amdgpu[/]vcn_3_1_2\.bin' drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
     blobname 'amdgpu[/]%s\.bin' drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-    blobname 'amdgpu[/]%s' drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
     blobname 'amdgpu[/]dcn_3_1_[56]_dmcub\.bin' drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
     blobname '%s\.bin' drivers/gpu/drm/tiny/panel-mipi-dbi.c
     defsnc 'static[ ]unsigned[ ]char[ ]blackwidow_init\[RAZER_BLACKWIDOW_TRANSFER_BUF_SIZE\][ ]=' drivers/hid/hid-razer.c
@@ -6523,6 +6522,76 @@ set_except () {
 
     # New in 5.18.5, 5.15.48, 5.10.123, 5.4.199, 4.19.248, 4.14.284, 4.9.319.
     accept 'combination[ ]with[ ]a[ ]microcode[ ]update[.][ ]The[ ]microcode[ ]clears' Documentation/admin-guide/hw-vuln/processor_mmio_stale_data.rst
+
+    # New in 5.19-rc.
+    # I'm not sure the following pattern matches actual blob names, in
+    # two senses: it's not clear they're software, and maybe they're
+    # just examples.  I'm tentatively cleaing them up.
+    blobname 'am\(335\|43\)x-evm-scale-data\.bin' Documentation/devicetree/bindings/soc/ti/wkup-m3-ipc.yaml
+    blobname 'am335x-bone-scale-data\.bin' arch/arm/boot/dts/am335x-bone-common.dtsi
+    blobname 'am335x-evm-scale-data\.bin' arch/arm/boot/dts/'am335x-evm\(\|sk\)\.dts'
+    blobname 'am43x-evm-scale-data\.bin' arch/arm/boot/dts/'am43\(7x-\(gp\|sk\)\|x-epos\)-evm\.dts'
+    blobname 'qcom[/]apq8096[/]\(mba\|modem\)\.mbn' arch/arm64/boot/dts/qcom/apq8096-db802c.dts
+    blobname 'qcom[/]msm8996[/]gemini[/]\(mba\|modem\|slpi\)\.mbn' arch/arm64/boot/dts/qcom/msm8996-xiaomi-gemini.dts
+    blobname 'qcom[/]msm8996[/]scorpio[/]\(mba\|modem\|slpi\)\.mbn' arch/arm64/boot/dts/qcom/msm8996-xiaomi-scorpio.dts
+    blobname 'qcom[/]sdm845[/]beryllium[/]\([ac]dsp\|a630_zap\|mba\|modem\|ipa_fws\)\.mbn' arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium.dts
+    blobname 'qcom[/]sm8450[/]\([ac]dsp\|modem\|slpi\)\.mbn' arch/arm64/boot/dts/qcom/sm8450-hdk.dts
+    defsnc 'static[ ]const[ ]__initconst[ ]u8[ ]certs_selftest_\(keys\|1_\(data\|pkcs7\)\)\[\][ ]=' crypto/asymmetric_keys/selftest.c
+    blobname 'rtl_bt[/]rtl8852cu_fw\.bin' drivers/bluetooth/btrtl.c
+    blobname 'amdgpu[/]vcn_4_0_[04]\.bin' drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+    blobname 'amdgpu[/]\(%s\|gc_11_0_[012]\)_imu\.bin' drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
+    blobname 'amdgpu[/]\(%s\|gc_11_0_[012]\)_mes1\?\.bin' drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+    blobname 'amdgpu[/]\(%s\|sdma_6_0_[012]\)\.bin' drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+    # The following is not new, it was just moved down to allow for
+    # new patterns to match despite being prefixed by it, when using
+    # non-NDA regexp engines.
+    blobname 'amdgpu[/]%s' drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+    # The asm source for this is drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm, there is no _gfx11.asm.
+    defsnc 'static[ ]const[ ]uint32_t[ ]cwsr_trap_gfx11_hex\[\][ ]=' drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+    defsnc '[\t]static[ ]const[ ]u8[ ]even_dividers\[\][ ]=' drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+    defsnc 'static[ ]const[ ]struct[ ]nv3052c_reg[ ]nv3052c_panel_regs\[\][ ]=' drivers/gpu/drm/panel/panel-newvision-nv3052c.c
+    defsc 'ICE_DECLARE_PKT_TEMPLATE[(]\(\(gre\|udp_tun\|\(vlan_\)\?\(tcp\|udp\)\|ipv[46]_gtpu\)_ipv[46]\(_\(tcp\|udp\)\)\?\|ipv6_gtp\)[)][ ]=' drivers/net/ethernet/intel/ice/ice_switch.c
+    blobname 'mellanox[/]lc_ini_bundle_%u_%u\.bin' drivers/net/ethernet/mellanox/mlxsw/core_linecards.c
+    blobname 'mellanox[/]lc_ini_bundle_\(["][ \\\n\t]*__stringify[(]MLXSW_SP\?_FWREV_\(SUB\)\?MINOR[)][ ]["][_.]\)*bin' drivers/net/ethernet/mellanox/mlxsw/spectrum.c
+    blobname 'mrvl[/]sdiouart8997_combo_v4\.bin' drivers/net/wireless/marvell/mwifiex/sdio.h
+    blobname 'plfxlc[/]lifi-x[cl]\?\.bin' drivers/net/wireless/purelifi/plfxlc/firmware.c
+    accept '[\t][\t]dev_err[(][&]intf->dev[,][ ]["][Rr]equest_firmware[ ]' drivers/net/wireless/purelifi/plfxlc/firmware.c
+    defsnc 'static[ ]const[ ]s8[ ]_txpwr_track_delta_swingidx_[56]g[ba]_[np]\[\]\[DELTA_SWINGIDX_SIZE\][ ]=' drivers/net/wireless/realtek/rtw89/'rtw8852[ac]_table\.c'
+    defsnc 'static[ ]const[ ]struct[ ]rtw89_reg2_def[ ]rtw89_8852c_phy_bb_reg\(s\|_gain\)\[\][ ]=' drivers/net/wireless/realtek/rtw89/rtw8852c_table.c
+    defsnc 'static[ ]const[ ]struct[ ]rtw89_reg2_def[ ]rtw89_8852c_phy_\(radio[ab]\|nctl\)_regs\[\][ ]=' drivers/net/wireless/realtek/rtw89/rtw8852c_table.c
+    defsnc 'static[ ]const[ ]struct[ ]rtw89_txpwr_byrate_cfg[ ]rtw89_8852c_txpwr_byrate\[\][ ]=' drivers/net/wireless/realtek/rtw89/rtw8852c_table.c
+    defsnc 'static[ ]const[ ]struct[ ]msm_gpio_wakeirq_map[ ]sm8150_pdc_map\[\][ ]=' drivers/pinctrl/qcom/pinctrl-sm8150.c
+    # It's not clear whether this contains code, but it's presumed proprietary, so tentatively disable it.
+    blobname 'intel[/]ifs[/]%02x-%02x-%02x\.scan' drivers/platform/x86/intel/ifs/load.c
+    defsnc 'static[ ]const[ ]int[ ]sm5703_buck_voltagemap\[\][ ]=' drivers/regulator/sm5703-regulator.c
+    blobname 'intel[/]irci_irci_ecr-master_20161208_0213_20170112_1500\.bin' drivers/staging/media/ipu3/ipu3-css-fw.h
+    defsnc '[\t]static[ ]u8[ ]p\[\]\[2\][ ]=' drivers/tty/serial/8250/8250_pci.c
+    defsnc '[}][ ]cs35l45_pll_refclk_freq\[\][ ]=' sound/soc/codecs/cs35l45-tables.c
+    defsnc 'static[ ]const[ ]char[ ][*][ ]const[ ]max98396_thermal_thresh_text\[\][ ]=' sound/soc/codecs/max98396.c
+    # Topology files are presumed not code, but since we block the
+    # loading of actual firmware by this driver, there's no harm in
+    # being conservative and blocking them too.  These don't seem to
+    # be built out of SOF.
+    blobname '\(rt286\|nau8825\|ssm4567\|max98357a\|rt298\|max98373\|da7219\|tdf8532\|i2s-test\|dmic\|hda-%08x\)-tplg\.bin' sound/soc/intel/avs/board_selection.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-rn\.ri["]' sound/soc/sof/amd/pci-rn.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-imx8x\?\.ri["]' sound/soc/sof/imx/imx8.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-imx8m\.ri["]' sound/soc/sof/imx/imx8m.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-bdw\.ri["]' sound/soc/sof/intel/bdw.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-\(byt\|cht\)\.ri["]' sound/soc/sof/intel/'\(byt\|pci-tng\)\.c'
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-\(apl\|glk\)\.ri["]' sound/soc/sof/intel/pci-apl.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-\(cnl\|cfl\|cml\)\.ri["]' sound/soc/sof/intel/pci-cnl.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-\(icl\|jsl\)\.ri["]' sound/soc/sof/intel/pci-icl.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-\(tgl\(-h\)\?\|ehl\|adl\(-s\)\?\)\.ri["]' sound/soc/sof/intel/pci-tgl.c
+    # This is a new naming convention for the sof-*.ri files.  SOF
+    # zephyr build scripts will output either name depending on the
+    # selected naming convention.
+    accept '[\t][\t]\[SOF_INTEL_IPC4\][ ]=[ ]["]dsp_basefw\.bin["]' sound/soc/sof/intel/'pci-\(apl\|cnl\|icl\|tgl\)\.c'
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-mt8186\.ri["]' sound/soc/sof/mediatek/mt8186/mt8186.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-mt8195\.ri["]' sound/soc/sof/mediatek/mt8195/mt8195.c
+    accept '\([ ]*\|[$][(]OUTPUT[)]\)test-libbpf-bpf_object__next_program\.bin' tools/build/feature/Makefile
+    accept '[\t][\t]test_batched_request_firmware\(\|_into_buf\|_direct\)[$]suffix' tools/testing/selftests/firmware/fw_filesystem.sh
+    accept '[\t][\t]test_request_firmware_nowait_\(uevent\|custom\)[$]suffix' tools/testing/selftests/firmware/fw_filesystem.sh
+    accept '[\t]\?test_request_firmware_compressed' tools/testing/selftests/firmware/fw_filesystem.sh
 
     ;;
 
