@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2022-08-25 r18881
+# deblob-check version 2022-09-07 r18895
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -6595,6 +6595,49 @@ set_except () {
 
     # New in 5.19.4, 5.15.63.
     accept '[\t]if[ ][(]!request_firmware_direct[(][&]fw[,][ ]kpu_profile[,][ ]rvu->dev[)][)]' drivers/net/ethernet/marvell/octeontx2/af/rvu_npc.c
+
+    # New in 6.0-rc.
+    blobname 'amdgpu[/]vcn_4_0_2\.bin' drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+    blobname 'amdgpu[/]dcn_3_\(1_4\|2_[01]\)_dmcub\.bin' drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+    blobname 'a619_gmu\.bin' drivers/gpu/drm/msm/adreno/adreno_device.c
+    blobname 'a615_zap\.mdt' drivers/gpu/drm/msm/adreno/adreno_device.c
+    blobname 'nvidia[/]tegra234[/]vic\.bin' drivers/gpu/drm/tegra/vic.c
+    accept '[	]\.firmware[ ]=[ ]NVIDIA_TEGRA_234_VIC_FIRMWARE' drivers/gpu/drm/tegra/vic.c
+    blobname 'netronome[/]serial-%pMF-%02x-%02x\.nffw' drivers/net/ethernet/netronome/nfp/nfp_main.c
+    initnc '[ ]*[$][ ]cat[ ]count' Documentation/admin-guide/mm/shrinker_debugfs.rst
+    defsnc 'static[ ]const[ ]struct[ ]cipher_testvec[ ]aria_tv_template\[\][ ]=' crypto/testmgr.h
+    defsnc 'static[ ]const[ ]struct[ ]hash_testvec[ ]polyval_tv_template\[\][ ]=' crypto/testmgr.h
+    defsnc '[\t]static[ ]const[ ]u8[ ]f_subtile_map\[\][ ]=' drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
+    defsnc 'static[ ]const[ ]struct[ ]reg_value[ ]ov5640_\(init_setting\|setting_low_res\)\[\][ ]=' drivers/media/i2c/ov5640.c
+    defsnc 'static[ ]const[ ]u32[ ]can327_bitrate_const\[\][ ]=' drivers/net/can/can327.c
+    defsc 'ICE_DECLARE_PKT_TEMPLATE[(]pppoe_ipv6_\(tcp\|udp\)[)][ ]=' drivers/net/ethernet/intel/ice/ice_switch.c
+    defsnc 'static[ ]const[ ]struct[ ]msm_gpio_wakeirq_map[ ]msm8909_mpm_map\[\][ ]=' drivers/pinctrl/qcom/pinctrl-msm8909.c
+    defsnc 'static[ ]const[ ]struct[ ]msm_gpio_wakeirq_map[ ]sm6375_mpm_map\[\][ ]=' drivers/pinctrl/qcom/pinctrl-sm6375.c
+    defsnc 'static[ ]const[ ]u32[ ]sp_resets\[\][ ]=' drivers/reset/reset-sunplus.c
+    defsc 'static[ ]unsigned[ ]short[ ]translations\[\]\[E_TABSZ\][ ]=' drivers/tty/vt/consolemap.c
+    defsnc 'static[ ]const[ ]u32[ ]x[12]\[256\][ ]=' include/crypto/aria.h
+    # Built out of the rembrandt_config in SOF sources.
+    accept '[\t][\t]\.fw_filename[ ]=[ ]["]sof-rmb\.ri["][,]' sound/soc/amd/acp-config.c
+    defsnc 'static[ ]const[ ]unsigned[ ]int[ ]src_iir_coeff_\(32\|4[48]\|96\)_to_\(16\|32\|44\)\[\][ ]=' sound/soc/mediatek/mt8186/mt8186-dai-src.c
+    defsnc 'static[ ]const[ ]int[ ]mt8186_sgen_mode_idx\[\][ ]=' sound/soc/mediatek/mt8186/mt8186-misc-control.c
+    accept '[\t ]*jq[ ]-e[ ]-r[ ]["]\.\[\]\[\]\.versions\.running\.fw["][)]' tools/testing/selftests/drivers/net/mlxsw/devlink_linecard.sh
+    accept 'IMG_PATH=["][$][{]TMP_DIR[}][/]fat\.img["]' tools/testing/selftests/filesystems/fat/run_fat_tests.sh
+    defsnc '\(static[ ]\)\?const[ ]struct[ ]nvkm_disp_mthd_list[ \n]g84_disp_\(\(ovly\|base\)_mthd_base\|core_mthd_head\)[ ]=' drivers/gpu/drm/nouveau/nvkm/engine/disp/g84.c
+    defsnc 'static[ ]const[ ]struct[ ]nvkm_disp_mthd_list[ \n]gk104_disp_\(ovly_mthd_base\|core_mthd_head\)[ ]=' drivers/gpu/drm/nouveau/nvkm/engine/disp/gk104.c
+    defsnc 'static[ ]const[ ]struct[ ]nvkm_disp_mthd_list[ \n]gt200_disp_ovly_mthd_base[ ]=' drivers/gpu/drm/nouveau/nvkm/engine/disp/gt200.c
+    blobname 'mediatek[/]mt8192[/]scp\.img' arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+    blobname 'qcom[/]msm8996[/]natrium[/]\(adsp\|a530_zap\|mba\|modem\|slpi\|venus\)\.mbn' arch/arm64/boot/dts/qcom/msm8996-xiaomi-natrium.dts
+    blobname 'qcom[/]sa8540p[/]\(adsp\|cdsp1\?\)\.mbn' arch/arm64/boot/dts/qcom/sa8295p-adp.dts
+    blobname 'qcom[/]sc7280-herobrine[/]modem[/]\(mba\|qdsp6sw\)\.mbn' arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
+    blobname 'ath11k[/]WCN6750[/]hw1\.0[/]wpss\.mdt' arch/arm64/boot/dts/qcom/sc7280-chrome-common.dtsi
+    blobname 'qcom[/]sc8280xp[/]qc[ac]dsp8280\.mbn' arch/arm64/boot/dts/qcom/sc8280xp-'\(crd\|lenovo-thinkpad-x13s\)\.dts'
+    blobname 'qcom[/]ifc6560[/]adsp\.mbn' arch/arm64/boot/dts/qcom/sda660-inforce-ifc6560.dts
+    blobname 'qcom[/]sdm845[/]judyln[/]\([ac]dsp\|a630_zap\|mba\|modem\)\.mbn' arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts
+    blobname 'qcom[/]sdm845[/]judyp[/]\([ac]dsp\|a630_zap\|mba\|modem\)\.mbn' arch/arm64/boot/dts/qcom/sdm845-lg-judyp.dts
+    blobname 'qcom[/]sdm845[/]polaris[/]\(cdsp\|a630_zap\|ipa_fws\|mba\|modem\|venus\)\.mbn' arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
+    blobname 'polaris[/]crnv21\.bin' arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
+    blobname 'habanalabs[/]gaudi2[/]gaudi2-\(boot-\|\)fit\.itb' drivers/misc/habanalabs/gaudi2/gaudi2P.h
+    accept '\(static[ ]int[ ]\|[\t][\t]*\(ret\(urn\|[ ]=\)[ ]\|\)\)cs35l41_request_firmware_file\(\|s\(\|_spkid\)\)[(]' sound/pci/hda/cs35l41_hda.c
 
     ;;
 
