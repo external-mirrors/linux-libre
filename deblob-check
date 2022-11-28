@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2022-11-16 r18984
+# deblob-check version 2022-11-27 r18997
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -6542,10 +6542,6 @@ set_except () {
     blobname 'amdgpu[/]\(%s\|gc_11_0_[012]\)_imu\.bin' drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
     blobname 'amdgpu[/]\(%s\|gc_11_0_[012]\)_mes1\?\.bin' drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
     blobname 'amdgpu[/]\(%s\|sdma_6_0_[012]\)\.bin' drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-    # The following is not new, it was just moved down to allow for
-    # new patterns to match despite being prefixed by it, when using
-    # non-NDA regexp engines.
-    blobname 'amdgpu[/]%s' drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
     # The asm source for this is drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm, there is no _gfx11.asm.
     defsnc 'static[ ]const[ ]uint32_t[ ]cwsr_trap_gfx11_hex\[\][ ]=' drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
     defsnc '[\t]static[ ]const[ ]u8[ ]even_dividers\[\][ ]=' drivers/gpu/drm/i915/display/intel_dpll_mgr.c
@@ -6647,8 +6643,40 @@ set_except () {
     accept '[\t][\t]\[SOF_INTEL_IPC4\][ ]=[ ]["]sof-mtl\.ri["]' sound/soc/sof/intel/pci-mtl.c
     accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-\(adl-n\|rpl\(-s\)\?\)\.ri["]' sound/soc/sof/intel/pci-tgl.c
 
-    # New in 6.0.9, 5.15.79, and 5.10.155.
+    # New in 6.0.9, 5.15.79, and 5.10.155.  Also 5.4.225 and 4.19.267.
     accept '[\t]err[ ]=[ ]request_firmware_nowait[(]THIS_MODULE[,][ ]true[,][ ]["]regulatory\.db["][,]' net/wireless/reg.c
+
+    # New in 6.1-rc.
+    blobname 'mediatek[/]mt8195[/]scp\.img' arch/arm64/boot/dts/mediatek/mt8195-cherry.dtsi
+    blobname 'qcom[/]sc7280-herobrine[/]modem[/]\(mba\|qdsp6sw\)\.mbn' arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
+    blobname 'qcom[/]\([ac]dsp\|slpi\)\.mbn' arch/arm64/boot/dts/qcom/sm8450-sony-xperia-nagara-pdx223.dts
+    accept '#define[ ]__DEFINE_ASM_GPR_NUMS[\t]*[\\][\n]["][\t]\.irp[\t]num\(,[0-9]\)*\(,[123][0-9]\)*[\\]n["]\([ \t]*[\\][\n]["][^"\n]*["]\)*' arch/riscv/include/asm/gpr-num.h
+    accept '[\t]\.irp[\t]num\(,[0-9]\)*\(,[123][0-9]\)*' arch/riscv/include/asm/gpr-num.h
+    blobname 'amdgpu[/]\(%s\|aldebaran\)_sjt_mec2\?\.bin' drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+    # The following is not new, it was just moved down to allow for
+    # new patterns to match despite being prefixed by it, when using
+    # non-NDA regexp engines.
+    blobname 'amdgpu[/]%s' drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+    blobname 'i915[/]["]\([ ][\\][\n][\t]__stringify[(]\(prefix\|major\|minor\|patch\)_[)]\([ ]\(name_\|["][.]["]\)\)\?\)*[ ]["]\.bin' drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+    defsc 'static[ ]struct[ ]convert_xrgb8888_case[ ]convert_xrgb8888_cases\[\][ ]=' drivers/gpu/drm/tests/drm_format_helper_test.c
+    # bno055-caldata files are calibration data that can be saved from
+    # and restored into the device.  See Documentation/iio/bno055.rst.
+    accept '#define[ ]BNO055_FW_\(UID_FMT\|GENERIC_NAME\)[ ]["]bno055-caldata\(-%[*]phN\)\?\.dat["]' drivers/iio/imu/bno055/bno055.c
+    accept '[\t][\t]\?ret[ ]=[ ]request_firmware[(][&]caldata[,][ ]\(fw_name_buf\|BNO055_FW_GENERIC_NAME\)[,][ ]dev[)][;]' drivers/iio/imu/bno055/bno055.c
+    defsc 'ICE_DECLARE_PKT_TEMPLATE[(]ipv6_l2tpv3[)][ ]=' drivers/net/ethernet/intel/ice/ice_switch.c
+    blobname 'rtw89[/]rtw8852b_fw\.bin' drivers/net/wireless/realtek/rtw89/rtw8852b.c
+    defsnc 'struct[ ]inno_mipi_dphy_timing[ ]inno_mipi_dphy_timing_table_max_\(1\|2_5\)ghz\[\][ ]=' drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c
+    blobname 'gsl1680-rca-cambio-w101-v2\.fw' drivers/platform/x86/touchscreen_dmi.c
+    defsnc 'static[ ]const[ ]struct[ ]tegra194_cbb_aperture[ ]tegra194_\(cbbcentral\|bpmp\|aon\|sce\)noc_apert\(ure\)\?_lookup\[\][ ]=' drivers/soc/tegra/cbb/tegra194-cbb.c
+    defsnc '[\t]unsigned[ ]long[ ]range\[\][ ]=' lib/test_maple_tree.c
+    defsnc 'static[ ]const[ ]struct[ ]_coeff_div[ ]coeff_div\[\][ ]=' sound/soc/codecs/es8326.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-rmb\.ri["]' sound/soc/sof/amd/pci-rmb.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-imx8ulp\.ri["]' sound/soc/sof/amd/pci-imx8ulp.c
+    defsnc '[\t]unsigned[ ]long[ ]set\[\][ ]=' tools/testing/radix-tree/maple.c
+    accept '[\t]@echo[ ]["]The[ ]output[ ]file[ ]is[ ][\\]["]run\.out[\\]["]\.' tools/testing/selftests/nolibc/Makefile
+    accept '[\t][$][(]Q[)]\(qemu-system\|grep\)[^\n]*[$][(]CURDIR[)][/]run\.out' tools/testing/selftests/nolibc/Makefile
+    blobna '%s[ ]firmware[ ]%s[ ]\([(]%d\.%d[)][ ]\)\?is[ ]recommended[,][ ]but[ ]only[ ]%s[ ]\([(]%d\.%d[)][ ]\)\?was[ ]found' drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+    blobna 'Consider[ ]updating[ ]your[ ]linux-firmware[ ]pkg[ ]or[ ]downloading[ ]from[ ]%s' drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
 
     ;;
 
