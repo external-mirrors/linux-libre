@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2023-03-10 r19100
+# deblob-check version 2023-03-17 r19120
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -6776,6 +6776,11 @@ set_except () {
     # New in 6.2.3.
     blobname 'qcom[/]sm8450[/]Sony[/]nagara[/]\(adsp\|cdsp\|slpi\)\.mbn' arch/arm64/boot/dts/qcom/sm8450-sony-xperia-nagara.dtsi
     blobname 'brcmfmac89459-pcie' drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+
+    blobna 'brcmfmac89[^";) \t\n]*\(-sdio\|-pcie\)\?' drivers/net/wireless/broadcom/brcm80211/brcmfmac/'\(sdio\|pcie\|usb\)\.c'
+
+    # New in 6.2.7, 6.1.20, 5.15.103, 5.10.175, 5.4.237, 4.19.278, 4.14.310.
+    accept '[\t][ ][*][ ]updated[ ]microcode[ ]at[ ]the[ ]time' arch/x86/kernel/cpu/amd.c
 
     ;;
 
