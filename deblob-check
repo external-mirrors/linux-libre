@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2023-03-17 r19120
+# deblob-check version 2023-04-13 r19170
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -6654,10 +6654,6 @@ set_except () {
     accept '#define[ ]__DEFINE_ASM_GPR_NUMS[\t]*[\\][\n]["][\t]\.irp[\t]num\(,[0-9]\)*\(,[123][0-9]\)*[\\]n["]\([ \t]*[\\][\n]["][^"\n]*["]\)*' arch/riscv/include/asm/gpr-num.h
     accept '[\t]\.irp[\t]num\(,[0-9]\)*\(,[123][0-9]\)*' arch/riscv/include/asm/gpr-num.h
     blobname 'amdgpu[/]\(%s\|aldebaran\)_sjt_mec2\?\.bin' drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-    # The following is not new, it was just moved down to allow for
-    # new patterns to match despite being prefixed by it, when using
-    # non-NDA regexp engines.
-    blobname 'amdgpu[/]%s' drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
     blobname 'i915[/]["]\([ ][\\][\n][\t]__stringify[(]\(prefix\|major\|minor\|patch\)_[)]\([ ]\(name_\|["][.]["]\)\)\?\)*[ ]["]\.bin' drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
     defsc 'static[ ]struct[ ]convert_xrgb8888_case[ ]convert_xrgb8888_cases\[\][ ]=' drivers/gpu/drm/tests/drm_format_helper_test.c
     # bno055-caldata files are calibration data that can be saved from
@@ -6782,6 +6778,93 @@ set_except () {
     # New in 6.2.7, 6.1.20, 5.15.103, 5.10.175, 5.4.237, 4.19.278, 4.14.310.
     accept '[\t][ ][*][ ]updated[ ]microcode[ ]at[ ]the[ ]time' arch/x86/kernel/cpu/amd.c
 
+    # New in 6.3-rc.
+    blobname 'qcom[/]sa8540p[/]cdsp0\.mbn' arch/arm64/boot/dts/qcom/sa8540p-ride.dts
+    blobname 'qcom[/]sdm850[/]LENOVO[/]81JL[/]qc\([ac]dsp\|dsp\(1v\)\?2\|vss\)850\.mbn' arch/arm64/boot/dts/qcom/sdm850-lenovo-yoga-c630.dts
+    blobname 'qcom[/]sdm850[/]LENOVO[/]81JL[/]qcdxkmsuc850\.mbn' 'Documentation/devicetree/bindings/display/msm/gpu.txt\|arch/arm64/boot/dts/qcom/sdm850-lenovo-yoga-c630.dts'
+    blobname 'qcom[/]sm7225[/]fairphone4[/]ipa_fws\.mdt' arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
+    blobname 'qcom[/]sm8350[/]a660_zap\.mbn' arch/arm64/boot/dts/qcom/sm8350-hdk.dts
+    blobname 'i915[/]["][ ]__stringify[(]platform[)][ ]["]_dmc\.bin' drivers/gpu/drm/i915/display/intel_dmc.c
+    blobname 'i915[/]\(["][ \t]*[\\][\n][\t]__stringify[(]\(platform\|major\|minor\)[)][ ]["]\(_\(dmc_ver\)\?\)\?\)*\.bin' drivers/gpu/drm/i915/display/intel_dmc.c
+    blobname 'i915[/]["]\([ ][\\][\n][\t]__stringify[(]\(prefix\|major\|minor\|patch\)_[)]\([ ]\(\(["]_["][ ]\)\?name_\([ ][ ]*["]_["]\)\?\|["][.]["]\)\)\?\)*[ ]["]\.bin' drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+    blobname "%s%d\.ucode" drivers/net/wireless/intel/iwlwifi/iwl-drv.c
+    accept '[\t]adsp->firmware[ ]=[ ]\(fw\|NULL\)' drivers/remoteproc/qcom_q6v5_pas.c
+    blobname '\([ac]dsp\|modem\)_dtb\.mdt' drivers/remoteproc/qcom_q6v5_pas.c
+    accept '[\t][\t]err[ ]=[ ]tegra_xusb_request_firmware[(]tegra[)]' drivers/usb/host/xhci-tegra.c
+    accept '[ ]*enum:[ ]\[[ ]\([0-9]*0[,]\([\n][ \t]*\|[ ]\)\)*[0-9]*0[ ]\]' Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml
+    blobname 'qcom[/]sc8280xp[/]qc[ac]dsp8280\.mbn' Documentation/devicetree/bindings/remoteproc/qcom,sc8280xp-pas.yaml
+    blobname 'qcom[/]sm6115[/]adsp\.mdt' Documentation/devicetree/bindings/remoteproc/qcom,sm6115-pas.yaml
+    blobname 'qcom[/]sm8150[/]adsp\.mdt' Documentation/devicetree/bindings/remoteproc/qcom,sm8150-pas.yaml
+    blobname 'qcom[/]sm8450[/]adsp\.mdt' Documentation/devicetree/bindings/remoteproc/qcom,sm8350-pas.yaml
+    blobname 'qcom[/]sm8550[/]adsp\(_dtb\)\?\.mdt' Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+    accept '[ ]*[.][.][.][\n][ ]*30[ ]*512[ ]*0[ ]*12[ ]*4[ 0-9\n]*' Documentation/vm/zsmalloc.rst
+    accept '[ ]*4[ ]*69[ ]*3264[ 0-9\n]*' Documentation/vm/zsmalloc.rst
+    accept '[ ][*][ ]*6[ ]6[ ]6[ ]6[ ]5[ ]5[ ]5[ ]5[ ]5[ ]5[ ]5[ ]5[ ]5[ ]5[ ]4[ ]4[ ]4[ ]4[ ]4[ ]4[ ]4[ ]4[ ]4[ ]4[ ]3[ ]3[ ]3[ ]3[ ]3[ ]3[ ]3[ ]3' arch/*/include/asm/pgtable.h
+    accept '[ ][*][ ]*3[ ]2[ ]1[ ]0[ ]9[ ]8[ ]7[ ]6[ ]5[ ]4[ ]3[ ]2[ ]1[ ]0[ ]9[ ]8[ ]7[ ]6[ ]5[ ]4[ ]3[ ]2[ ]1[ ]0[ ]9[ ]8[ ]7[ ]6[ ]5[ ]4[ ]3[ ]2' arch/*/include/asm/pgtable.h
+    accept '[ ][*][ ]*3[ ]3[ ]3[ ]3[ ]3[ ]3[ ]3[ ]3[ ]4[ ]4[ ]4[ ]4[ ]4[ ]4[ ]4[ ]4[ ]4[ ]4[ ]5[ ]5[ ]5[ ]5[ ]5[ ]5[ ]5[ ]5[ ]5[ ]5[ ]6[ ]6[ ]6[ ]6' arch/*/include/asm/pgtable.h
+    accept '[ ][*][ ]*2[ ]3[ ]4[ ]5[ ]6[ ]7[ ]8[ ]9[ ]0[ ]1[ ]2[ ]3[ ]4[ ]5[ ]6[ ]7[ ]8[ ]9[ ]0[ ]1[ ]2[ ]3[ ]4[ ]5[ ]6[ ]7[ ]8[ ]9[ ]0[ ]1[ ]2[ ]3' arch/*/include/asm/pgtable.h
+    blobname 'qcom[/]sm8250[/]xiaomi[/]elish[/]\([ac]dsp\|a650_zap\|slpi\|venus\)\.mbn' arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish.dts
+    blobname 'qcom[/]sm8550[/]\(\([ac]dsp\|modem\)\(_dtb\)\?\|a660_zap\)\.mbn' arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish.dts
+    blobname 'mtl_vpu\.bin' drivers/accel/ivpu/ivpu_fw.c
+    blobname 'intel[/]vpu[/]mtl_vpu_v0\.0\.bin' drivers/accel/ivpu/ivpu_fw.c
+    blobname 'amdgpu[/]%s_mes%s\.bin' drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+    blobname 'amdgpu[/]%s%d.bin' drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+    # The following is not new, it was just moved down to allow for
+    # new patterns to match despite being prefixed by it, when using
+    # non-NDA regexp engines.
+    blobname 'amdgpu[/]%s' drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+    accept '[ ][*][ ]This[ ]is[ ]a[ ]helper[ ]that[ ]will[ ]use[ ]request_firmware[ ]' drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+    accept '[\t]mipi_dsi_dcs_write_seq[(]dsi[,][ ]HX8394_CMD_[^ ,\t\n)]*\([, \t\n]*0x[0-9a-f][0-9a-f]\)*[)][;]' drivers/gpu/drm/panel/panel-himax-hx8394.c
+    accept '[\t]mipi_dsi_dcs_write_seq[(]dsi[,][ ]0xc8[^ ,\t\n)]*\([, \t\n]*0x[0-9a-f][0-9a-f]\)*[)][;]' drivers/gpu/drm/panel/panel-leadtek-ltk050h3146w.c
+    defsc 'static[ ]const[ ]struct[ ]reg_sequence[ ]ota5601a_panel_regs\[\][ ]=' drivers/gpu/drm/panel/panel-oristech-ota5601a.c
+    accept '[\t]mipi_dsi_\(generic\|dcs\)_write_seq[(]dsi[,][ ]ST7703_CMD_[^ ,\t\n)]*\([, \t\n]*0x[0-9A-F][0-9A-F]\)*[)][;]' drivers/gpu/drm/panel/panel-sitronix-st7703.c
+    accept '[\t]mipi_dsi_dcs_write_seq[(]dsi[,][ ]0x70[^ ,\t\n)]*\([, \t\n]*0x[0-9a-f][0-9a-f]\)*[)][;]' drivers/gpu/drm/panel/panel-visionox-vtdr6130.c
+    accept '[\t]mipi_dsi_dcs_write_seq[(]dsi[,][ ]XPP055C272_CMD_[^ ,\t\n)]*\([, \t\n]*0x[0-9a-f][0-9a-f]\)*[)][;]' drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c
+    defsc 'static[ ]const[ ]struct[ ]regval[ ]ov8858_global_regs_r\(1a\|2a_[24]lane\)\[\][ ]=' drivers/media/i2c/ov8858.c
+    blobname '\(board\(-2\)\|caldata\|amss\|m3\|regdb\)\.bin' drivers/net/wireless/ath/ath12k/hw.h
+    blobname 'cal-%s-%s\.bin' drivers/net/wireless/ath/ath12k/qmi.c
+    blobname 'mrvl[/]sdiouartiw416_combo_v0\.bin' drivers/net/wireless/marvell/mwifiex/sdio.h
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_reg8val[ ]rtl8188e_mac_init_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8188e.c
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_reg32val[ ]rtl8188eu_phy_init_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8188e.c
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_reg32val[ ]rtl8188e_agc_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8188e.c
+    defsc 'static[ ]const[ ]struct[ ]rtl8xxxu_rfregval[ ]rtl8188eu_radioa_init_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8188e.c
+    defsnc 'static[ ]const[ ]struct[ ]msm_gpio_wakeirq_map[ ]sm8550_pdc_map\[\][ ]=' drivers/npinctrl/qcom/pinctrl-sm8550.c
+    defsnc 'static[ ]const[ ]int[ ]mlxplat_ng800_channels\[\][ ]=' drivers/platform/x86mlx-platform.c
+    defsc 'const[ ]u32[ ]dm_tx_bb_gain\[TX_BB_GAIN_TABLE_LEN\][ ]=' drivers/staging/rtl8192e/rtl8192e/rtl_dm.c
+    defsnc 'const[ ]u8[ ]dm_cck_tx_bb_gain\[CCK_TX_BB_GAIN_TABLE_LEN\]\[8\][ ]=' drivers/staging/rtl8192e/rtl8192e/rtl_dm.c
+    defsnc 'const[ ]u8[ ]dm_cck_tx_bb_gain_ch14\[CCK_TX_BB_GAIN_TABLE_LEN\]\[8\][ ]=' drivers/staging/rtl8192e/rtl8192e/rtl_dm.c
+    defsnc 'static[ ]u8[ \t]*CCKSwingTable_\(Ch1_Ch13\|Ch14\)\[CCK_TABLE_LEN\]\[8\][ ]=' drivers/staging/rtl8192e/rtl8192e/rtl_dm.c
+    defsnc 'struct[ ]tsens_legacy_calibration_format[ ]tsens_\(89\(39\|74\(_backup\)\?\|76\)\|qcs404\)_nvmem[ ]=' drivers/thermal/qcom/tsens-v0_1.c
+    defsnc 'static[ ]uint8_t[ ]__initdata[ ]__attribute__[(][(]__aligned__[(]8[)][)][)][ ]test_buf\[\][ ]=' fs/xfs/xfs_dahash_test.c
+    defsnc '[}][ ]test\[\][ ]__initdata[ ]=' fs/xfs/xfs_dahash_test.c
+    accept 'DEFINE_HEX_XDR_NETOBJ[(]\([^ ,]*test\|\(camellia\|aes\)256_cts\)[^ ,]*[,][\n \tx0-9a-f,]*[)]' net/sunrpc/auth_gss/gss_krb5_test.c
+    blobname 'aw88395_acf\.bin' sound/soc/codecs/aw88395/aw88395_device.h
+    defsnc 'static[ ]const[ ]struct[ ]reg_default[ ]rt712_sdca_\(reg\|mbq\)_defaults\[\][ ]=' sound/soc/codecs/rt712-sdca-sdw.h
+    defsnc 'static[ ]const[ ]struct[ ]reg_default[ ]sma1303_reg_def\[\][ ]=' sound/soc/codecs/sma1303.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-mt8188\.ri["]' sound/soc/sof/mt8186/mt8186.c
+    accept '[\t][$][(]Q[)]qemu-[$][(]QEMU_ARCH[)][ ][.][/]nolibc-test[ ][>][ ]["][$][(]CURDIR[)][/]run\.out["]' tools/testing/selftests/nolibc/Makefile
+    accept 'const[ ]struct[ ]firmware[ ][*]ath12k_core_firmware_request[(]struct[ ]ath12k_base[ ][*]' drivers/net/wireless/ath/ath12k/'core\.[ch]'
+    accept '[\t][\t]*bd->fw[ ]=[ ]ath12k_core_firmware_request[(]ab[,][ ]filename[)]' drivers/net/wireless/ath/ath12k/core.c
+    accept '[\t][\t]*fw\(_entry\)\?[ ]=[ ]ath12k_core_firmware_request[(]ab[,]' drivers/net/wireless/ath/ath12k/qmi.c
+    accept '[\t][\t]*dev_err[(]adsp->dev[,][ ]["]request_firmware[ ]failed' drivers/remoteproc/qcom_q6v5_pas.c
+    accept 'static[ ]int[ ]aw88395_request_firmware_file[(]struct[ ]aw88395[ ][*]aw88395[)]' sound/soc/codecs/aw88395/aw88395.c
+    accept '[\t]ret[ ]=[ ]aw88395_request_firmware_file[(]aw88395[)]' sound/soc/codecs/aw88395/aw88395.c
+    accept '[\t]*err[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->pm\.fw[,][ ]fw_name[)]' drivers/gpu/drm/amd/'\(amdgpu/amdgpu_cgs\|pm/\(legacy-dpm/si_dpm\)swsmu/smu1[13]/smu_v1[13]_0\)\)\.c'
+    accept '[\t]*err[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->firmware\.gpu_info_fw[,][ ]fw_name[)]' drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+    accept '[\t]*r[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->mes\.fw\[pipe\][,][ ]fw_name[)]' drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+    accept '[\t]*err[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->psp\.\(asd\|toc\|sos\|ta\|cap\)_fw[,][ ]fw_name[)]' drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+     accept '[\t]*err[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->sdma\.instance\[\(instance\|i\)\]\.fw[,][ ]fw_name[)]' drivers/gpu/drm/amd/amdgpu/'\(\(amdgpu\|cik\)_sdma\|sdma_v[0-9_]*\)\.c'
+    accept '[ ][*][ ]amdgpu_ucode_request[ ]-[ ]Fetch[ ]and[ ]validate' drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+    accept 'int[ ]amdgpu_ucode_request[(]struct[ ]amdgpu_device[ ][*]adev[,][ ]const[ ]struct[ ]firmware[ ][*][*]fw[,]' drivers/gpu/drm/amd/amdgpu/'amdgpu_ucode\.[ch]'
+    accept '[\t]*r[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->uvd\.fw[,][ ]fw_name[)]' drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+    accept '[\t]*r[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->vce\.fw[,][ ]fw_name[)]' drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+    accept '[\t]*r[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->vcn\.fw[,][ ]fw_name[)]' drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+    accept '[\t]*err[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->gfx\.\(pfp\|me\|ce\|rlc\|mec2\?\)_fw[,][ ]fw_name[)]' drivers/gpu/drm/amd/amdgpu/gfx_v*_0.c
+    accept '[\t]*["]gfx10:[ ]amdgpu_ucode_request[(][)][ ]failed' drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+    accept '[\t]*err[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->gmc\.fw[,][ ]fw_name[)]' drivers/gpu/drm/amd/amdgpu/gmc_v*_0.c
+    accept '[\t]*err[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->gfx\.imu_fw[,][ ]fw_name[)]' drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
+    accept '[\t]*r[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->dm\.\(fw_dmcu\|dmub_fw\)[,][ ]fw_name_dm\(cu\|ub\)[)]' drivers/gpu/drm/amd/amdgpu/amdgpu_dm.c
+
     ;;
 
   */*freedo*.patch | */*logo*.patch)
@@ -6812,6 +6895,7 @@ set_except () {
   blobna 'equest_partial_firmwar'
   blobna 'equest_ihex_firmwar'
   blobna 'irmware_reques' # catch _nowarn; also caches _cache, but that's ok.
+  blobna 'ucode_reques' # catch amdgpu_ucode_request.
   # Catch request_firmare misdeblobbed by the above.
   blobname 'r[/][*][(]DEBLOBBED[)][*][/]e' 
   blobname 'f[/][*][(]DEBLOBBED[)][*][/]t' 
