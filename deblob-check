@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2023-05-24 r19297
+# deblob-check version 2023-05-25 r19300
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -6870,6 +6870,8 @@ set_except () {
 
     # New in 6.3.4, 6.1.30.
     blobname 'rtl_bt[/]rtl\(8723cs_\(cg\|vf\|xx\)\|8851bu\)_\(config\|fw\)\.bin' drivers/bluetooth/btrtl.c
+    # New in 6.3.4.
+    accept '[\t]*r[ ]=[ ]amdgpu_ucode_request[(]adev[,][ ][&]adev->mes\.fw\[pipe\][,][ \n\t]*fw_name[)]' drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
 
     ;;
 
