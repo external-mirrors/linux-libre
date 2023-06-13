@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2023-06-09 r19312
+# deblob-check version 2023-06-12 r19329
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -6876,6 +6876,72 @@ set_except () {
     # New in 6.3.7, 6.1.33, 5.15.115, 5.10.183, 5.4.246.
     accept '[\t][\t]req->name[ ]=[ ]test_fw_config->name[;][\n][\t][\t]req->fw_buf[ ]=[ ]NULL[;][\n][\t][\t]req->fw[ ]=[ ]NULL[;][\n][\t][\t]req->idx[ ]=[ ]i[;][\n][\t][\t]init_completion[(][&]req->completion[)][;][\n][\t][\t]rc[ ]=[ ]request_firmware_nowait[(]THIS_MODULE[,][ ]\([^);, \t\n]*[,][ \t\n]*\)*trigger_batched_cb[)][;]' lib/test_firmware.c
 
+    # New in 6.4-rc.
+    accept '[ ][ ]intr[ ]8688370575[ 0-9]*<more[ ]0' Documentation/filesystems/proc.rst
+    blobname 'qcom[/]sdm845[/]oneplus6[/]slpi\.mbn' arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+    blobname 'qcom[/]sdm845[/]axolotl[/]slpi\.mbn' arch/arm64/boot/dts/qcom/sdm845-shift-axolotl-common.dts
+    blobname 'qcom[/]sdm845[/]Sony[/]tama[/]\([ac]dsp\|a630_zap\|venus\)\.mbn' arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
+    blobname 'qcom[/]sm6115[/]LENOVO[/]J606F[/]\([ac]dsp\|modem\)\.mbn' arch/arm64/boot/dts/qcom/sm6115p-lenovo-j606f.dts
+    blobname 'qcom[/]sm6375[/]Sony[/]murray[/][ac]dsp\.mbn' arch/arm64/boot/dts/qcom/sm6375-sony-xperia-murray-pdx225.dts
+    blobname 'qcom[/]sm8250[/]xiaomi[/]elish[/]\([ac]dsp\|a650_zap\|slpi\|venus\)\.mbn' arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi
+    blobname 'qcom[/]sm8550[/]\([ac]dsp\|modem\)\(\|_dtb\)\.mbn' arch/arm64/boot/dts/qcom/sm8550-qrd.dts
+    blobname 'qcom[/]aic100[/]sbl\.bin' drivers/accel/qaic/mhi_controller.c
+    blobname 'nxp[/]\(uart\(uart\(8987_bt\|8997_bt_v4\|9098_bt_v1\)\|iw416_bt_v0\)\|helper_uart_3000000\)\.bin' drivers/bluetooth/btnxpuart.c
+    blobname 'nxp[/]uartspi_n61x_v1\.bin\.se' drivers/bluetooth/btnxpuart.c
+    accept 'static[ ]int[ ]nxp_request_firmware[(]' drivers/bluetooth/btnxpuart.c
+    accept '[\t][\t]if[ ][(]nxp_request_firmware[(]hdev[,][ ]nxp_data->\(helper_\)\?fw_name' drivers/bluetooth/btnxpuart.c
+    accept '[\t]if[ ][(]!nxp_request_firmware[(]hdev[,][ ]nxp_get_fw_name_from_chipid' drivers/bluetooth/btnxpuart.c
+    blobname 'qca[/]hpbtfw%02x\.tlv' drivers/bluetooth/btqca.c
+    blobname 'qca[/]hpnv%02x\.bin' drivers/bluetooth/btqca.c
+    blobname 'rtl_bt[/]rtl88\(21cs\|52bs\)_fw\.bin' drivers/bluetooth/btrtl.c
+    defsnc 'static[ ]const[ ]struct[ ]sp_clk_gate_info[ ]sp_clk_gates\[\][ ]=' drivers/clk/clk-sp7021.c
+    blobname 'qat_402xx\(_\(mmp\|sym\|dc\|asym\|admin\)\)\?\.bin' drivers/crypto/intel/qat/qat_4xxx/adf_4xxx_hw_data.h
+    blobname 'amdgpu[/]sdma_4_4_2\.bin' drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+    # Sources are in cwsr_trap_handler_gfx9.asm.
+    defsnc 'static[ ]const[ ]uint32_t[ ]cwsr_trap_gfx9_4_3_hex\[\][ ]=' drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+    defsnc 'static[ ]const[ ]u8[ ]rc_range_\(min\|max\)qp420_8bpc\[DSC_NUM_BUF_RANGES\]\[RC_RANGE_QP420_8BPC_MAX_NUM_BPP\][ ]=' drivers/gpu/drm/i915/display/intel_qp_tables.c
+    defsnc 'static[ ]const[ ]u8[ ]rc_range_\(min\|max\)qp420_10bpc\[DSC_NUM_BUF_RANGES\]\[RC_RANGE_QP420_10BPC_MAX_NUM_BPP\][ ]=' drivers/gpu/drm/i915/display/intel_qp_tables.c
+    defsnc 'static[ ]const[ ]u8[ ]rc_range_\(min\|max\)qp420_12bpc\[DSC_NUM_BUF_RANGES\]\[RC_RANGE_QP420_12BPC_MAX_NUM_BPP\][ ]=' drivers/gpu/drm/i915/display/intel_qp_tables.c
+    defsnc 'static[ ]u8[ ]ams495qa01_gamma\[NUM_GAMMA_LEVELS\]\[GAMMA_TABLE_COUNT\][ ]=' drivers/gpu/drm/panel/panel-magnachip-d53e6ea8966.c
+    defsc 'static[ ]const[ ]struct[ ]dw_hdmi_curr_ctrl[ ]rockchip_cur_ctr\[\][ ]=' drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+    defsnc '[\t]static[ ]const[ ]int[ ]voltages\[100\][ ]=' drivers/hid/hid-logitech-hidpp.c
+    blobname 'ccs[/]%s-%s-%0[*]x-%4\.4x-%0[*]x\.fw' drivers/media/i2c/ccs/ccs-core.c
+    defsnc 'static[ ]const[ ]struct[ ]hi556_reg[ ]mode_2592x1444_regs\[\][ ]=' drivers/media/i2c/hi556.c
+    defsnc 'static[ ]const[ ]struct[ ]imx334_reg[ ]mode_1920x1080_regs\[\][ ]=' drivers/media/i2c/imx334.c
+    defsnc 'static[ ]const[ ]unsigned[ ]char[ ]jpeg_d[qh]t_extseq\[\][ ]=' drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
+    blobname 'mediatek[/]mt7981_wo\.bin' drivers/net/ethernet/mediatek/mtk_wed_wo.h
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_reg8val[ ]rtl8710b_mac_init_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8710b.c
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_reg32val[ ]rtl8710bu_qfn48m_[us]_phy_init_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8710b.c
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_rfregval[ ]rtl8710bu_qfn48m_[us]_radioa_init_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8710b.c
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_reg32val[ ]rtl8710b_agc_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8710b.c
+    blobname 'rtlwifi[/]rtl8710bufw_\(SMIC\|UMC\)\.bin' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8710b.c
+    accept '[\t]rtwdev->fw\.req\.firmware[ ]=[ ]firmware[;]' drivers/net/wireless/realtek/rtw89/core.c
+    accept '[\t][\t]fw->req\.firmware[ ]=[ ]NULL[;]' drivers/net/wireless/realtek/rtw89/fw.c
+    blobname '%s\(-%d\)\?\.bin' drivers/net/wireless/realtek/rtw89/fw.h
+    defsnc 'static[ ]const[ ]struct[ ]rtw89_reg2_def[ ]rtw89_8851b_phy_\(bb\|radioa\|nctl\)_reg\(s\|_gain\)\[\][ ]=' drivers/net/wireless/realtek/rtw89/rtw8851b_table.c
+    defsnc 'static[ ]const[ ]struct[ ]rtw89_txpwr_byrate_cfg[ ]rtw89_8851b_txpwr_byrate\[\][ ]=' drivers/net/wireless/realtek/rtw89/rtw8851b_table.c
+    blobname 'rtw89[/]rtw[^ \n"]*_fw' drivers/net/wireless/realtek/rtw89/'rtw8852[abc]\.c'
+    blobname '["]\.bin["]' drivers/net/wireless/realtek/rtw89/'rtw8852[ac]\.c'
+    blobname '["]-["][ ]__stringify[(]RTW8852B_FW_FORMAT_MAX[)][ ]["]\.bin["]' drivers/net/wireless/realtek/rtw89/rtw8852b.c
+    defsnc 'static[ ]const[ ]struct[ ]msm_gpio_wakeirq_map[ ]msm8998_mpm_map\[\][ ]=' drivers/pinctrl/qcom/pinctrl-msm8998.c
+    defsnc 'static[ ]const[ ]struct[ ]msm_gpio_wakeirq_map[ ]sm7150_pdc_map\[\][ ]=' drivers/pinctrl/qcom/pinctrl-sm7150.c
+    blobname 'qsl1680-chuwi-hi8\.fw' drivers/platform/x86/x86-android-tablets/other.c
+    blobname 'gt912-tm800a550l\.fw' drivers/platform/x86/x86-android-tablets/other.c
+    defsnc 'u32[ ]RTL8192E_PHY_REG_1T2R_ARR\[RTL8192E_PHY_REG_1T2R_ARR_LEN\][ ]=' drivers/staging/rtl8192e/rtl8192e/table.c
+    defsnc 'u32[ ]RTL8192E_RADIO_A_ARR\[RTL8192E_RADIO_A_ARR_LEN\][ ]=' drivers/staging/rtl8192e/rtl8192e/table.c
+    defsnc 'u32[ ]RTL8192E_RADIO_B_ARR\[RTL8192E_RADIO_B_ARR_LEN\][ ]=' drivers/staging/rtl8192e/rtl8192e/table.c
+    defsnc 'u32[ ]RTL8192E_AGCTAB_ARR\[RTL8192E_AGCTAB_ARR_LEN\][ ]=' drivers/staging/rtl8192e/rtl8192e/table.c
+    blob 'from[ ]optee[/]tee\.bin[ ]in[ ]the[ ]Linux[ ]firmware\([*]*[^*/]\+\|[/]\)*[*]\+[/]' drivers/tee/optee/smc_smc.h
+    blobname 'optee[/]tee\.bin' drivers/tee/optee/smc_abi.c
+    defsnc 'static[ ]const[ ]struct[ ]reg_sequence[ ]cs35l45_fs_errata_patch\[\][ ]=' sound/soc/codecs/cs35l45.c
+    defsnc 'static[ ]const[ ]struct[ ]reg_default[ ]rt712_sdca_dmic_reg_defaults\[\][ ]=' sound/soc/codecs/rt712-sdca-dmic.h
+    accept '[(][ ]cd[ ][$]LKMM_DESTDIR[;][ ]find[ ]litmus[ ]-name[ ]["][*][.]litmus[$][{]hwfnseg[}]\.out["][ ]-print[ ][)]' tools/memory-model/scripts/checkghlitmus.sh
+    accept '[\t][\t]sed[ ]-e[ ][\'"'"']s[/]\\\.litmus[$][/]\.litmus\.[\'"'"'][$][{]LKMM_HW_MAP_FILE[}][\'"'"'][/][\'"'"'][`]\.out["]' tools/memory-model/scripts/judgelitmus.sh
+    accept '#[ ]but[ ]with[ ]["]\.out["][ ]appended\.' tools/memory-model/scripts/runlitmus.sh
+    accept '\([#][^\n]*\)\?[ \t]*rdesc=["\'"'"']\(05[ ]0[1d][ ]09\|06[ ]00[ ]ff\|75[ ]08[ ]15\)[ 0-9a-fA-F]*["\'"'"']' tools/testing/selftests/hid/tests/test_multitouch.py
+    accept '[\t][\t][\t]tools[/]testing[/]selftests[/]rcutorture[/]bin[/]kvm\.sh[ ]--allcpus[ ]--duration[ ]5s[ ]--configs[ ]["]SRCU-P["][ ]--bootargs[ ]["]rcutorture\.test_srcu_lockdep=[$]val["][ ]--trust-make[ ]--datestamp[ ]["][$]ds[/][$]val["][ ]>[ ]["][$]T[/]kvm\.sh\.out["][ ]2>[&]1' tools/testing/selftests/rcutorture/bin/srcu_lockdep.sh
+    accept '[\t][\t][\t]mv[ ]["][$]T[/]kvm\.sh\.out["][ ]["][$]RCUTORTURE[/]res[/][$]ds[/][$]val["]' tools/testing/selftests/rcutorture/bin/srcu_lockdep.sh
+
     ;;
 
   */*freedo*.patch | */*logo*.patch)
@@ -6915,7 +6981,7 @@ set_except () {
   blobna 'DEFAULT_FIRMWARE'
   blobna '\([.]\|->\)firmware[ 	\n]*=[^=]'
   blobna 'mod_firmware_load' # sound/
-  blobname '[.]\(\(fw\|bin\)[0-9]*\|hex\|frm\|co[dx]\|dat\|elf\|xlx\|rfb\|ucode\|img\|sbcf\|ctx\(prog\|vals\)\|z77\|wfw\|inp\|dlmem\|cld\|tftf\|out\|nffw\|mdt\|mfa2\?\|ri\|tplg\|itb\|cyacd\|mbn\|tlv\|sfi\|grp\)[\\]\?["]'
+  blobname '[.]\(\(fw\|bin\)[0-9]*\|hex\|frm\|co[dx]\|dat\|elf\|xlx\|rfb\|ucode\|img\|sbcf\|ctx\(prog\|vals\)\|z77\|wfw\|inp\|dlmem\|cld\|tftf\|out\|nffw\|mdt\|mfa2\?\|ri\|tplg\|itb\|cyacd\|mbn\|tlv\|sfi\|grp\|bin\.se\)[\\]\?["]'
   # WIP ends with [\\]\?[][}{)(><,;:.!?% \t\n"`\'"'"']'
   # Catch misdeblobbed fw extension.
   blobname '["]\([^" \t\n/]*[/][/]*\)*[*][(]DEBLOBBED[)][*][/][^"\\]'
