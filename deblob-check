@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2023-08-08 r19366
+# deblob-check version 2023-08-19 r19387
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -3846,7 +3846,8 @@ set_except () {
     blobname 'wil6210\.fw' drivers/net/wireless/ath/wil6210/wil6210.h
     blobna 'FW[ ]Version:[ ]%d_%d_%d' drivers/net/wireless/broadcom/bnx2x/bnx2x_main.c
     blobna '\([,][\n \t]*BCM_5710_FW_\(MAJOR\|MINOR\|REVISION\|ENGINEERING\)_VERSION\)\+' drivers/net/wireless/broadcom/bnx2x/bnx2x_main.c
-    blobname 'iwlwifi-8000' drivers/net/wireless/iwlwifi/iwl-8000.c
+    # Moved down.
+    # blobname 'iwlwifi-8000' drivers/net/wireless/iwlwifi/iwl-8000.c
     blobname '["]-["][ ]__stringify[(]api[)][ ]["]\.ucode["]' drivers/net/wireless/iwlwifi/iwl-8000.c
     blobname '%s%s-%s\.ucode' drivers/net/wireless/iwlwifi/iwl-drv.c
     blobname 'rtlwifi[/]rtl8723efw\.bin' drivers/net/wireless/rtlwifi/rtl8723ae/sw.c
@@ -4026,7 +4027,8 @@ set_except () {
     blobname 'firmware-4\.bin' drivers/net/wireless/ath/ath10k/hw.h
     blobname 'brcm[/]brcmfmac43340-sdio\.bin' drivers/net/wireless/brcm80211/brcmfmac/dhd_sdio.c
     blobname 'iwlwifi-7260-' drivers/net/wireless/iwlwifi/pcie/7000.c
-    blobname 'iwlwifi-8000' drivers/net/wireless/intel/iwlwifi/iwl-8000.c
+    # Moved down.
+    # blobname 'iwlwifi-8000' drivers/net/wireless/intel/iwlwifi/iwl-8000.c
     blobname 'iwl_nvm_8000B\.bin' drivers/net/wireless/iwlwifi/iwl-8000.c
     blobname 'mrvl[/]sd8801_uapsta\.bin' drivers/net/wireless/mwifiex/sdio.h
     blobname 'mrvl[/]usb8801_uapsta\.bin' drivers/net/wireless/mwifiex/usb.h
@@ -4431,7 +4433,8 @@ set_except () {
     blobname 'pre-cal-%s-%s\.bin' drivers/net/wireless/ath/ath10k/core.c
     accept '[\t]fw_file->firmware[ ]=[ ]ath10k_fetch_fw_file' drivers/net/wireless/ath/ath10k/core.c
     blobname 'brcmfmac4356-sdio\.bin' drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-    blobname 'iwlwifi-9000\(-pu-[ab]0-\(jf\|lc\)-[ab]0-\|-\|\)' drivers/net/wireless/intel/iwlwifi/iwl-9000.c
+    # Moved down.
+    # blobname 'iwlwifi-9000\(-pu-[ab]0-\(jf\|lc\)-[ab]0-\|-\|\)' drivers/net/wireless/intel/iwlwifi/iwl-9000.c
     blobname 'iwlwifi-9260-th-a0-\(jf\|lc\)-a0-' drivers/net/wireless/intel/iwlwifi/iwl-9000.c
     blobname 'mrvl[/]pcie8897_uapsta_a0\.bin' drivers/net/wireless/marvell/mwifiex/pcie.h
     blobname 'mrvl[/]pcieuart8997_combo\(_v2\)\?\.bin' drivers/net/wireless/marvell/mwifiex/pcie.h
@@ -4642,7 +4645,8 @@ set_except () {
     accept '[\t]if[ ][(]of_property_read_bool[(]np[,][ ]["]qca[,]no-eeprom["][)][)][ ][{][\n][\t]*[/][*][ ]ath9k-eeprom-<bus>-<id>\.bin[ ][*][/][\n][\t]*scnprintf[(]eeprom_name[,][ ]sizeof[(]eeprom_name[)][,][\n][\t ]*["]ath9k-eeprom-%s-%s\.bin["][,]' drivers/net/wireless/ath/ath9k/init.c
     blobname 'iwlwifi-3168-' drivers/net/wireless/intel/iwlwifi/iwl-7000.c
     blobname 'iwlwifi-8265-' drivers/net/wireless/intel/iwlwifi/iwl-8000.c
-    blobname 'iwlwifi-[0-9][^"\n\t ]*-' drivers/net/wireless/intel/iwlwifi/iwl-8000.c
+    # Moved down.
+    # blobname 'iwlwifi-[0-9][^"\n\t ]*-' drivers/net/wireless/intel/iwlwifi/iwl-8000.c
     blobname 'a530v3_gpmu\.fw2' drivers/gpu/drm/msm/adreno/adreno_device.c
 
     # New in 4.11.
@@ -4767,7 +4771,8 @@ set_except () {
     blobname 'dvb-tuner-si2141-a10-01\.fw' drivers/media/tuners/si2157_priv.h
     blobname 'firmware-6\.bin' drivers/net/wireless/ath/ath10k/hw.h
     blobname '[/][*][ ]the[ ]firmware-6\.bin[ ]blob[ ][*][/]' drivers/net/wireless/ath/ath10k/hw.h
-    blobname 'iwlwifi-9260-th-b0-\(jf\|lc\)-b0-' drivers/net/wireless/intel/iwlwifi/iwl-9000.c
+    # Moved down.
+    # blobname 'iwlwifi-9260-th-b0-\(jf\|lc\)-b0-' drivers/net/wireless/intel/iwlwifi/iwl-9000.c
     blobname 'iwlwifi-QuIcp-a0-hrcdb-a0-' drivers/net/wireless/intel/iwlwifi/iwl-a000.c
     blobname 'git:[/][/]git\.kernel\.org[/][^"\n]*firmware\.git' drivers/net/wireless/intel/iwlwifi/iwl-drv.c
     blobname 'rtlwifi[/]rtl8723befw_36\.bin' drivers/net/wireless/realtek/rtlwifi/rtl8723be/sw.c
@@ -4907,7 +4912,8 @@ set_except () {
     # pattern appears too late.  An earlier pattern that matches
     # iwlwifi-9000 alone and starts with 'iwlwifi-9000\(' needed
     # adjusting as well.
-    blobname 'iwlwifi-9000-pu-b0-jf-b0-' drivers/net/wireless/intel/iwlwifi/cfg/9000.c
+    # Moved down.
+    # blobname 'iwlwifi-9000-pu-b0-jf-b0-' drivers/net/wireless/intel/iwlwifi/cfg/9000.c
 
     # New in 4.15 (up to rc6).
     accept '[\t]*0[ ][ ][/][*]1\([ ][ ][23456]\)*[*][/]\([ ][ ][789]\)*\([\n][\t]*\([ ]*[1-9][0-9]*\)*\)*[\n][\t]*100' arch/arm/boot/dts/imx6q-pistachio.dts
@@ -5224,7 +5230,8 @@ set_except () {
     blobname 'ctefx-desktop\.bin' sound/pci/hda/patch_ca0132.c
     defsnc 'static[ ]const[ ]unsigned[ ]int[ ]lpf[123]_default_tap\[\][ ]=' sound/soc/meson/axg-pdm.c
     blobname 'eboard\.bin' 'drivers/net/wireless/ath/ath10k/\(hw\.h\|core\.c\)'
-    blobname 'iwlwifi-\(Qu\(Qnj\)\?-b0-hr-b0\|su-z0\|Qu-b0-jf-b0\)-' drivers/net/wireless/intel/iwlwifi/cfg/22000.c
+    # Moved down.
+    # blobname 'iwlwifi-\(Qu\(Qnj\)\?-b0-hr-b0\|su-z0\|Qu-b0-jf-b0\)-' drivers/net/wireless/intel/iwlwifi/cfg/22000.c
     blobname 'modem\.b%02d' drivers/remoteproc/qcom_q6v5_mss.c
     # New in 4.20-rc7.
     blobname 'amdgpu[/]polaris1[01]_k2_smc\.bin' drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
@@ -5339,7 +5346,8 @@ set_except () {
     # blobname '\(sof\|reef\)-bdw\(\.ri\|-\(rt286\|rt5677\|rt5640\)\.tplg\)' sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
     # blobname '\(sof\|reef\)-icl\(\.ri\|-rt274\.tplg\)' sound/soc/intel/common/soc-acpi-intel-icl-match.c
     blobna '[/][*][ ]brcmfmac4366c-pcie\.\(ap\.\)\?bin[ ]from[ ]linux-firmware\.git[ ]commit[ ][0-9a-f]*[ ][*][/]' drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
-    blobname 'iwlwifi-[^ ]*-[ab]0-' drivers/net/wireless/intel/iwlwifi/cfg/22000.c
+    # Moved down.
+    # blobname 'iwlwifi-[^ ]*-[ab]0-' drivers/net/wireless/intel/iwlwifi/cfg/22000.c
     blobname 'iwlwifi-\(\(QuZ-a0-hr\|QuQnj-b0-jf\|so-a0-\(jf\|hr\)\)-b0\|\(cc\|\(so\|ty\)-a0-gf\)-a0\)-' drivers/net/wireless/intel/iwlwifi/cfg/22000.c
 
     # New in 5.1.2, 5.0.16, 4.19.43, 4.14.119, and 4.9.176.
@@ -6954,6 +6962,84 @@ set_except () {
     accept 'GDS[ ]can[ ]also[ ]be[ ]mitigated[ ]on[ ]systems[ ]that[ ]don.t[ ]have[ ]updated[ ]microcode' Documentation/admin-guide/hw-vuln/gather_data_sampling.rst
     accept 'The[ ]updated[ ]microcode[ ]will[ ]enable[ ]the[ ]mitigation[ ]by[ ]default' Documentation/admin-guide/hw-vuln/gather_data_sampling.rst
     accept '[\t]*This[ ]issue[ ]is[ ]mitigated[ ]by[ ]default[ ]in[ ]updated[ ]microcode' Documentation/admin-guide/kernel-parameters.txt
+
+    # New in 6.5-rc.
+    blobname 'qcom[/]apq8074[/]\(adsp\|mba\|modem\)\.mbn' arch/arm/boot/dts/qcom/qcom-apq8074-dragonboard.dts
+    blobname 'qcom[/]qrb4210[/][ac]dsp\.mbn' arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
+    blobname 'qcom[/]sc7180[/]acer[/]aspire1[/]qc\(dxkmsuc7180\|mpss7180_nm\|vss7180\)\.mbn' arch/arm64/boot/dts/qcom/sc7180-acer-aspire1.dts
+    blobname 'qcom[/]sc8180x[/]qc\(dxkmsuc8180\|[ac]dsp8180\|mpss8180_nm\)\.mbn' arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
+    blobname 'qcom[/]sc8180x[/]qc\(dxkmsucadsp\|mpss\)8180\.mbn' arch/arm64/boot/dts/qcom/sc8180x-primus.dts
+    blobname 'qcom[/]sc8280xp[/]qcdxkmsuc8280\.mbn' arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
+    blobname 'qcom[/]sc8280xp[/]LENOVO[/]21BX[/]qcdxkmsuc8280\.mbn' arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+    blobname 'qcom[/]sm8250[/]Sony[/]edo[/]venus\.mbn' arch/arm64/boot/dts/qcom/sm8250-sony-xperia-edo.dtsi
+    defsnc 'static[ ]const[ ]struct[ ]clk_div_table[ ]eadc_div_table\[\][ ]=' drivers/clk/nuvoton/clk-ma35d1.c
+    defsnc 'static[ ]char[ ]data_synd\[\][ ]=' drivers/edac/npcm_edac.c
+    blobname 'amdgpu[/]vcn_4_0_3\.bin' drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+    blobname 'amdgpu[/]%s_\(rlc\|mec\)\.bin' drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+    defsnc 'static[ ]const[ ]struct[ ]dm_bl_data_point[ ]custom_backlight_curve0\[\][ ]=' drivers/gpu/drm/amd/display/modules/power/power_helpers.c
+    defsnc 'static[ ]unsigned[ ]short[ ]meson_encl_gamma_table\[256\][ ]=' drivers/gpu/drm/meson/meson_venc.c
+    blobname 'a6[19]0_zap\.mdt' drivers/gpu/drm/msm/adreno/adreno_device.c
+    blobname 'a690_gmu\.bin' drivers/gpu/drm/msm/adreno/adreno_device.c
+    defsc 'static[ ]const[ ]struct[ ]panel_init_cmd[ ]starry_himax83102_j02_init_cmd\[\][ ]=' drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c
+    accept '[\t]mipi_dsi_dcs_write_seq[(]dsi[,][ ]ST7703_CMD_SET\(GAMMA\|GIP[12]\)[^ ,\t\n)]*\([, \t\n]*0x[0-9a-f][0-9a-f]\)*[)][;]' drivers/gpu/drm/panel/panel-xinpeng-xpp055c272.c
+    accept 'static[ ]inline[ ]void[ ]thunderstrike_request_firmware_version[(]' drivers/hid/hid-nvidia-shield.c
+    accept '[\t][\t]*thunderstrike_request_firmware_version[(]ts[)]' drivers/hid/hid-nvidia-shield.c
+    defsnc 'static[ ]const[ ]struct[ ]ov01a10_reg[ ]sensor_1280x800_setting\[\][ ]=' drivers/media/i2c/ov01a10.c
+    defsnc 'static[ ]const[ ]short[ ]div_lut\[DIV_LUT_NUM[ ][+][ ]1\][ ]=' drivers/media/platform/mediatek/vcodec/vdec/vdec_av1_req_lat_if.c
+    defsnc 'static[ ]const[ ]short[ ]div_lut\[DIV_LUT_NUM[ ][+][ ]1\][ ]=' drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+    defsnc 'static[ ]const[ ]struct[ ]ksz9477_errata_write[ ]ksz9477_errata_writes\[\][ ]=' drivers/net/phy/micrel.c
+    blobname 'iwlwifi-Qu\(-[bc]0-\(hr\|jf\)\|Z-a0-\(hr\|jf\)\)-b0' drivers/net/wireless/intel/iwlwifi/cfg/22000.c
+    blobname 'iwlwifi-cc-a0' drivers/net/wireless/intel/iwlwifi/cfg/iwl-22000.c
+    # Moved from way above, so that the above matches first.
+    blobname 'iwlwifi-\(Qu\(Qnj\)\?-b0-hr-b0\|su-z0\|Qu-b0-jf-b0\)-' drivers/net/wireless/intel/iwlwifi/cfg/22000.c
+    blobname 'iwlwifi-8000C' drivers/net/wireless/intel/iwlwifi/cfg/8000.c
+    blobname 'iwlwifi-9000-pu-b0-jf-b0' drivers/net/wireless/intel/iwlwifi/cfg/9000.c
+    blobname 'iwlwifi-9260-th-b0-\(jf\|lc\)-b0' drivers/net/wireless/intel/iwlwifi/iwl-9000.c
+    blobname 'iwlwifi-so-a0-jf-b0' drivers/net/wireless/intel/iwlwifi/cfg/ax210.c
+    blobname 'iwlwifi-\(so\|ma\)-a0-hr-b0' drivers/net/wireless/intel/iwlwifi/cfg/ax210.c
+    blobname 'iwlwifi-\(so\|ty\|ma\)-[ab]0-\(jf\|hr\|gf4\?\|mr\)-[ab]0' drivers/net/wireless/intel/iwlwifi/cfg/ax210.c
+    blobname 'iwlwifi-\(bz\|gl\)-[abc]0-\(hr\|gf4\?\|fm4\?\)-[abc]0' drivers/net/wireless/intel/iwlwifi/cfg/bz.c
+    blobname 'iwlwifi-\(sc\)-[ab]0-\(fm\|hr\|gf4\?\|wh\)-[abc]0' drivers/net/wireless/intel/iwlwifi/cfg/sc.c
+    # Moved from way above, so that the above matches first.
+    blobname 'iwlwifi-[^ ]*-[ab]0-' drivers/net/wireless/intel/iwlwifi/cfg/22000.c
+    blobname '%s-%d\.ucode' drivers/net/wireless/intel/iwlwifi/iwl-drv.c
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_reg8val[ ]rtl8192f_mac_init_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8192f.c
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_reg32val[ ]rtl8192fu\?_\(phy_init\|agc\)_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8192f.c
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_rfregval[ ]rtl8192fu\?_radio[ab]_init_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8192f.c
+    blobname 'rtlwifi[/]rtl8192fufw\.bin' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_8192f.c
+    blobname 'rtw89[/]rtw8851b_fw' drivers/net/wireless/realtek/rtw89/rtw8851b.c
+    # This defines RTW8851B_MODULE_FIRMWARE, only used in MODULE_FIRMWARE.
+    # It will cause an error if MODULE_FIRMWARE remains, or if it gets used elsewhere,
+    # so flag any such uses so that corrective action can be taken.
+    blobna 'RTW8851B_FW_BASENAME[ ]["]\.bin["]' drivers/net/wireless/realtek/rtw89/rtw8851b.c
+    accept '#define[ ]RTW8851B_MODULE_FIRMWARE[ ]' drivers/net/wireless/realtek/rtw89/rtw8851b.c
+    blobna 'RTW8851B_MODULE_FIRMWARE' drivers/net/wireless/realtek/rtw89/rtw8851b.c
+    defsnc 'static[ ]const[ ]struct[ ]msm_gpio_wakeirq_map[ ]sa8775p_pdc_map\[\][ ]=' drivers/pinctrl/qcom/pinctrl-sa8775p.c
+    defsnc 'static[ ]const[ ]struct[ ]msm_gpio_wakeirq_map[ ]sdx75_pdc_map\[\][ ]=' drivers/pinctrl/qcom/pinctrl-sdx75.c
+    blobname 'gsl1680-archos-101-cesium-educ\.fw' drivers/platform/x86/touchscreen_dmi.c
+    defsnc 'static[ ]const[ ]unsigned[ ]char[ ]x_trg\[\][ ]=' drivers/spi/spi-rzv2m-csi.c
+    defsnc 'static[ ]const[ ]unsigned[ ]char[ ]x_trg_words\[\][ ]=' drivers/spi/spi-rzv2m-csi.c
+    accept 'MODULE_FIRMWARE[(]["]broadsheet\.wbf["][)][;]' drivers/video/fbdev/broadsheetfb.c
+    accept 'MODULE_FIRMWARE[(]["]metronome\.wbf["][)][;]' drivers/video/fbdev/metronomefb.c
+    defsnc 'static[ ]const[ ]u8[ ]random_buf\[\][ ]=' lib/checksum_kunit.c
+    defsnc 'static[ ]const[ ]__sum16[ ]expected_results\[\][ ]=' lib/checksum_kunit.c
+    defsnc 'static[ ]const[ ]__wsum[ ]init_sums_no_overflow\[\][ ]=' lib/checksum_kunit.c
+    defsnc 'static[ ]const[ ]struct[ ]reg_default[ ]rt722_sdca_reg_defaults\[\][ ]=' sound/soc/codecs/rt722-sdca-sdw.h
+    blobname '%sRCA%d\.bin' sound/soc/codecs/tas2781-comlib.c
+    blobname '%s_coef\.bin' sound/soc/codecs/tas2781-i2c.c
+    blobname '%s_cal_0x\(%02x\|[0-9a-f][0-9a-f]\)\.bin' sound/soc/codecs/tas2781-i2c.c
+    blobname 'mediatek[/]mt8183[/]scp\.img' arch/arm64/boot/dts/mediatek/mt8183-kukui.dtis
+    blobname 'qcom[/]sc8180x[/]LENOVO[/]82AK[/]qc\([ac]dsp8180\|mpss8180_nm\)\.mbn' arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
+    blobname 'iwlwifi-6000g2[ab]' drivers/net/iwlwifi/iwl-6000.c
+    blobname 'iwlwifi-7265D' drivers/net/wireless/iwlwifi/iwl-7000.c
+    blobname 'iwlwifi-9000\(-pu-[ab]0-\(jf\|lc\)-[ab]0-\|-\|\)' drivers/net/wireless/intel/iwlwifi/iwl-9000.c
+    # Moved from above, but now redundant.
+    # blobname 'iwlwifi-8000' drivers/net/wireless/intel/iwlwifi/iwl-8000.c
+    blobname 'iwlwifi-[0-9][^"\n\t ]*-' drivers/net/wireless/intel/iwlwifi/iwl-8000.c
+    blobname 'iwlwifi-[0-9]\+' 'drivers/net/wireless/intel/iwlwifi/cfg/.*.c'
+    blob 'Required[ ]firmware[\n][=]\+[\n][\n]The[ ]atomisp[ ]driver[ ]requires[^\n]*\([\n]\+[- ][^\n]\+\)*' drivers/staging/media/atomisp/TODO
+    accept '[\t][\t]dev_err[(]tas_priv->dev[,][ ]["]request_firmware_nowait[ ]err' sound/soc/codecs/tas2781-comlib.c
+    accept '[ ]*irq[/]29-iwlwifi-559' Documentation/trace/histogram.rst
 
     ;;
 
