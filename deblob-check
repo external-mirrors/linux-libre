@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2023-08-19 r19387
+# deblob-check version 2023-09-13 r19402
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -7040,6 +7040,9 @@ set_except () {
     blob 'Required[ ]firmware[\n][=]\+[\n][\n]The[ ]atomisp[ ]driver[ ]requires[^\n]*\([\n]\+[- ][^\n]\+\)*' drivers/staging/media/atomisp/TODO
     accept '[\t][\t]dev_err[(]tas_priv->dev[,][ ]["]request_firmware_nowait[ ]err' sound/soc/codecs/tas2781-comlib.c
     accept '[ ]*irq[/]29-iwlwifi-559' Documentation/trace/histogram.rst
+
+    # New in 6.5.3 and 6.4.16.
+    blobname '%s_v2\.bin' drivers/bluetooth/btrtl.c
 
     ;;
 
