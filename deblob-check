@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2023-09-13 r19403
+# deblob-check version 2023-10-23 r19416
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -7051,6 +7051,61 @@ set_except () {
     blobname 'rtl_bt[/]rtl8851\(bu\)_fw' drivers/bluetooth/btrtl.c
     defsnc 'static[ ]const[ ]u16[ ]expected_results\[\][ ]=' lib/checksum_kunit.c
     defsnc 'static[ ]const[ ]u32[ ]init_sums_no_overflow\[\][ ]=' lib/checksum_kunit.c
+
+    # New in 6.6-rc.
+    blobname 'ti-pruss[/]am65x-\(sr2-\)\?\(pru\|rtu\|txpru\)[01]-prueth-fw\.elf' 'Documentation/devicetree/bindings/net/ti,icssg-prueth\.yaml\|drivers/net/ethernet/ti/icssg/icssg_prueth\.c'
+    accept '[ ]*R:[ ]52[ ]05[ ]01[ ][0-9a-f ]*' Documentation/hid/hidintro.rst
+    accept 'Consider[ ]the[ ]following[ ]HID[ ]report[ ]descriptor::[\n 0-9A-F]*' Documentation/hid/hidintro.rst
+    accept '[ ]*hid:[ ]\[[\n 0-9a-fx,]*' Documentation/hid/hidintro.rst
+    accept '[ ]*Report[ ]Descriptor:[\n][ ]*5[ ]1[ ][0-9a-f ]*' Documentation/hid/hidintro.rst
+    blobname 'qcom[/]qrb4210[/]a610_zap\.mbn' arch/arm64/boot/dts/qcom/qrb4210-rb2.dts
+    blobname 'qcom[/]sm6115[/]LENOVO[/]J606F[/]a610_zap\.mbn' arch/arm64/boot/dts/qcom/sm6115p-lenovo-j606f.dts
+    blob '[/][*][ ]TODO:[ ]Remove[^*\n]*[ ]generation[ ]based[ ]FW[ ]names[ ][*][/]' drivers/accel/ivpu/ivpu_fw.c
+    blobname '\(intel[/]vpu[/]\)\?vpu_\(37\|40\)xx\(_v0\.0\)\?\.bin' drivers/accel/ivpu/ivpu_fw.c
+    blobname 'mediatek[/]mt7925[/]BT_RAM_CODE_MT7925_1_1_hdr\.bin' drivers/bluetooth/btmtk.h
+    blobname 'nxp[/]uart\(iw624\|aw693\)_bt\.bin\(\.se\)\?' drivers/bluetooth/btnxpuart.c
+    blobname 'qca[/]\(ap\|hmt\)btfw%02x\.tlv' drivers/bluetooth/btqca.c
+    blobname 'qca[/]\(ap\|hmt\)nv%02x\.bin' drivers/bluetooth/btqca.c
+    blobname 'mediatek[/]mt%04x[/]BT_RAM_CODE_MT%04x_1_%x_hdr\.bin' drivers/bluetooth/btusb.c
+    blobname 'qcom[/]prog_firehose_sdx6x\.elf' drivers/bus/mhi/host/pci_generic.c
+    defsnc 'static[ ]const[ ]u8[ ]i2cr_cfam\[\][ ]=' drivers/fsi/fsi-master-i2cr.c
+    accept '[\t]mipi_dsi_dcs_write_seq[(]dsi[,][ ]0xd[8f][^ ,\t\n)]*\([, \t\n]*0x[0-9a-f][0-9a-f]\)*[)][;]' drivers/gpu/drm/panel/panel-visionox-r66451.c
+    defsnc 'static[ ]const[ ]u8[ ]iqs7211_gesture_angle\[\][ ]=' drivers/input/touchscreen/iqs7211.c
+    blobname 'qcom[/]vpu-1\.0[/]venus\.mbn' drivers/media/platform/qcom/venus/core.c
+    blobname 'cs42l43\.bin' drivers/mfd/cs42l43.c
+    defsnc 'static[ ]const[ ]u8[ ]ice_dflt_vsi_rcp\[ICE_RECIPE_LEN\][ ]=' drivers/net/ethernet/intel/ice/ice_lag.c
+    blobname 'mediatek[/]mt7981_\(w[am]\|rom_patch\|eeprom_mt7976_dbdc\)\.bin' drivers/net/wireless/mediatek/mt76/mt7915/mt7915.h
+    blobname 'mediatek[/]mt7996[/]mt7996_dsp\.bin' drivers/net/wireless/mediatek/mt76/mt7996/mt7996.h
+    blobname 'gsl1680-\(bush-bush-windows-tablet\|positivo-c4128b\)\.fw' drivers/platform/x86/otuchscreen_dmi.c
+    defsnc 'static[ ]const[ ]unsigned[ ]char[ ]vt3253b0_rfmd\[CB_VT3253B0_INIT_FOR_RFMD\]\[2\][ ]=' drivers/staging/vt6655/baseband.c
+    defsnc 'static[ ]struct[ ]tsens_legacy_calibration_format[ ]tsens_\(8974\(_backup\)\?\|qcs404\)_nvmem[ ]=' drivers/thermal/qcom/tsens-v0_1.c
+    accept 'static[ ]int[ ]cs35l56_hda_request_firmware_file[(]struct' sound/pci/hda/cs35l56_hda.c
+    blobname '%scs35l56%s-%02x-dsp1-misc\(-%s\)*\.%s' sound/pci/hda/cs35l56_hda.c
+    accept 'static[ ]void[ ]cs35l56_hda_request_firmware_files[(]struct' sound/pci/hda/cs35l56_hda.c
+    accept '[\t]*\(if[ ][(][!]\|ret[ ]=[ ]\)cs35l56_hda_request_firmware_file[(]cs35l56[,][ ]wmfw_firmware[,]' sound/pci/hda/cs35l56_hda.c
+    accept '[\t]*cs35l56_hda_request_firmware_file[(]cs35l56[,]' sound/pci/hda/cs35l56_hda.c
+    accept '[\t]*cs35l56_hda_request_firmware_files[(]cs35l56[,][ ][&]wmfw_firmware[,]' sound/pci/hda/cs35l56_hda.c
+     # This appears to be data.
+    accept '[\t]scnprintf[(]tas_priv->coef_binaryname[,][ ]64[,][ ]["]TAS2XXX%04X\.bin["]' sound/pci/hda/tas2781_hda_i2c.c
+    accept '[\t][\t]\.fw_filename[ ]=[ ]["]sof-vangogh\.ri["]' sound/soc/amd/acp-config.c
+    blobname 'aw88261_acf\.bin' sound/soc/codecs/aw88261.h
+    accept 'static[ ]int[ ]aw88261_request_firmware_file[(]struct' sound/soc/codecs/aw88261.c
+    accept '[\t]ret[ ]=[ ]aw88261_request_firmware_file[(]aw88261[)]' sound/soc/codecs/aw88261.c
+    accept '[\t]*["]aw88261_request_firmware_file[ ]failed' sound/soc/codecs/aw88261.c
+    defsnc 'static[ ]const[ ]struct[ ]reg_sequence[ ]rt1017_blind_write\[\][ ]=' sound/soc/codecs/rt1017-sdca-sdw.c
+    defsnc 'static[ ]const[ ]struct[ ]reg_default[ ]rt1017_sdca_reg_defaults\[\][ ]=' sound/soc/codecs/rt1017-sdca-sdw.h
+    blobname 'rt5663-tplg\.bin' sound/soc/intel/avs/board_selection.c
+    blobname 'es8336-tplg\.bin' sound/soc/intel/avs/board_selection.c
+    blobname 'hda-%08x-tplg\.bin' sound/soc/intel/avs/pcm.c
+    blobname 'hda-8086-generic-tplg\.bin' sound/soc/intel/avs/pcm.c
+    blobname 'hda-generic-tplg\.bin' sound/soc/intel/avs/pcm.c
+    accept '[\t]ret[ ]=[ ]request_firmware[(][&]\(sdev->basefw\.fw\|adata->fw_dbin\)[,][ ]adata->fw_\(code\|data\)_bin' sound/soc/sof/amd/acp-loader.c
+    accept '[\t][\t]adata->fw_\(code\|data\)_bin[ ]=[ ]kasprintf[(]GFP_KERNEL[,][ ]["]%s[/]sof-%s-\(code\|data\)\.bin["]' sound/soc/sof/amd/acp.c
+    accept '[\t][\t]\[SOF_IPC\][ ]=[ ]["]sof-vangogh\.ri["]' sound/soc/sof/amd/pci-vangogh.c
+    accept '[\t][\t]\[SOF_INTEL_IPC4\][ ]=[ ]["]sof-lnl\.ri["]' sound/soc/sof/intel/pci-lnl.c
+    defsnc 'static[ ]uint8_t[ ]frag\(_[01]\|6_[012]\)\[\][ ]=' tools/testing/selftests/bpf/ip_check_defrag_frags.h
+    accept '[\t][$][(]Q[)]\.[/]\(no\)\?libc-test[ ][>][ ]["][$][(]CURDIR[)][/]run\.out["]' tools/testing/selftests/nolibc/Makefile
+    accept '[\t][\t]echo[ ]["][ ]---[ ]Summary:[ ]Exit[ ]code[ ][$]retcode[ ]from[ ][$]flavor[,][ ]see[ ]Make\.out' tools/testing/selftests/rcutorture/bin/torture.sh
 
     ;;
 
