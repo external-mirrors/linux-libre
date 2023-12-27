@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# deblob-check version 2023-12-26 r19450
+# deblob-check version 2023-12-27 r19451
 # Inspired in gNewSense's find-firmware script.
 # Written by Alexandre Oliva <lxoliva@fsfla.org>
 
@@ -7205,6 +7205,9 @@ set_except () {
     accept '[\t]*pr_info[(]["]Unsafe[ ]microcode[ ]update:[ ]Microcode[ ]header' arch/x86/kernel/cpu/microcode/intel.c
     blobname 'qca[/]hpnv%02x%s\.\(bin\|%x\)' drivers/bluetooth/btqca.c
     blobna '[/][*][ ]No[ ]m3[ ]file[ ]in[ ]firmware-N\.bin[ ]so[ ]try[ ]to[ ]request[ ]old[\n\t *]*separate[ ]m3\.bin\.[\n\t *]*[*][/]' drivers/net/wireless/ath/ath11k/qmi.c
+    accept '[\t]\.quirks[ \t]*=[ ]XHCI_RENESAS_FW_QUIRK[,][\n][\t]\.firmware[ ]=' drivers/usb/host/xhci-pci.c
+    defsnc 'static[ ]const[ ]struct[ ]rtl8xxxu_rfregval[ ]rtl8188ru_radioa_1t_highpa_table\[\][ ]=' drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu_core.c
+    defsnc 'static[ ]const[ ]u32[ ]rtw8822b_txscale_tbl\[RTW_TXSCALE_SIZE\][ ]=' drivers/net/wireless/realtek/rtw88/rtw8822b.c
 
     ;;
 
