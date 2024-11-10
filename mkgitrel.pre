@@ -122,6 +122,9 @@ for f in scripts/v$rel/.* scripts/v$rel/*; do
   esac
 done &&
 
+DEBLOB_CHECK_PYTHON_REGEX=debug scripts/v$rel/deblob-check \
+			 -i linux-x.y -C /dev/null &&
+
 continue
 
 success=false
