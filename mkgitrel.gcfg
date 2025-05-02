@@ -24,3 +24,5 @@
 reldir=$HOME/linux-libre/releases
 
 key=474402C8C582DAFBE389C427BCB7CF877E7D47A7
+
+scriptsrefdir=$HOME/build/linux-libre/releases/branches
