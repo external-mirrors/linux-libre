@@ -117,7 +117,9 @@ for f in scripts/v$rel/.* scripts/v$rel/*; do
   scripts/"v$rel"/COPYING | \
   scripts/"v$rel"/deblob-"$cbr" | \
   scripts/"v$rel"/deblob-check)
-    if diff $f $scriptsrefdir/"$cbr"; then
+    if test ! -d $scriptsrefdir/"$cbr"; then
+      :
+    elif diff $f $scriptsrefdir/"$cbr"; then
       :
     else
       success=false
